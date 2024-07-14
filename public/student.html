@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student | Student Information System</title>
+  <link rel="stylesheet" href="student.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+  <main>
+    <section class="student-hero">
+      <div class="student-hero-content">
+        <h1>Welcome, Student</h1>
+        <p>Access your academic records and information with ease.</p><br>
+        <form action="/logout" method="post"><button type="submit"><i class="fa-solid fa-arrow-left"></i> LogOut</button></form>
+      </div>
+    </section>
+
+    <section class="student-dashboard">
+      <h2>Student Dashboard</h2>
+      <div class="student-cards">
+        <div class="student-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Course Enrollment</h3>
+          <p>View and enroll your semester courses.</p>
+          <a href="studentcourses.html" class="btn">View Courses</a>
+        </div>
+        <div class="student-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Academic Progress</h3>
+          <p>View your academic progress and performance.</p>
+          <a href="studentreport.html" class="btn">View Progress</a>
+        </div>
+        <div class="student-card">
+          <i class="fa-solid fa-pen-to-square"></i>
+          <h3>Edit Personal Info</h3>
+          <p>Edit your personal information with ease.</p>
+          <a href="studentpersonals.html" class="btn">Edit Info</a>
+        </div>
+        
+      </div>
+    </section>
+
+  
+  </main>
+  <footer>
+    <div class="container">
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </div>
+</footer>
+  <script src="../scripts/app.js"></script>
+</body>
+</html>

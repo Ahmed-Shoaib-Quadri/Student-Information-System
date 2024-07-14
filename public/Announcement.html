@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcement Module</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+}
+
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+main {
+    padding: 20px;
+}
+header a{
+    color:#fff;
+    text-decoration: none;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.announcement-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.announcement-item p {
+    margin: 0;
+}
+
+.announcement-item button {
+    margin-top: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Make Announcements</h1>
+        <a href="admin.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Add Announcement</h2>
+            <form id="announcementForm">
+                <label for="announcementTitle">Title:</label><br>
+                <input type="text" id="announcementTitle" name="announcementTitle"><br>
+                <label for="announcementContent">Content:</label><br>
+                <textarea id="announcementContent" name="announcementContent" rows="4" cols="50"></textarea><br><br>
+                <label for="announcementLink">Link:</label><br>
+                <input type="url" id="announcementLink" name="announcementLink"><br><br>
+                <label for="announcementFile">Upload file:</label>
+                <input type="file" id="announcementFile" name="announcementFile"><br><br>
+                <button type="submit">Submit Announcement</button>
+            </form>
+
+            <h2>Announcements</h2>
+            <div id="announcementList">
+                <!-- Announcement items will be displayed here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </footer>
+
+    <script>
+        // Function to handle form submission
+document.getElementById('announcementForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    
+    // Get announcement details from the form
+    var title = document.getElementById('announcementTitle').value;
+    var content = document.getElementById('announcementContent').value;
+    var link = document.getElementById('announcementLink').value;
+    var file = document.getElementById('announcementFile').files[0]; // For file upload, get the file object
+
+    // Display the announcement
+    displayAnnouncement(title, content, link, file);
+
+    // Reset the form
+    document.getElementById('announcementForm').reset();
+});
+
+// Function to display announcement
+function displayAnnouncement(title, content, link, file) {
+    var announcementList = document.getElementById('announcementList');
+
+    // Create announcement item
+    var announcementItem = document.createElement('div');
+    announcementItem.classList.add('announcement-item');    
+
+    // Add announcement title
+    var titleElement = document.createElement('h3');
+    titleElement.textContent = title;
+    announcementItem.appendChild(titleElement);
+
+    // Add announcement content
+    var contentElement = document.createElement('p');
+    contentElement.textContent = content;
+    announcementItem.appendChild(contentElement);
+
+    // Add announcement link
+    if (link) {
+        var linkElement = document.createElement('a');
+        linkElement.textContent = "Click Here";
+        linkElement.href = link;
+        linkElement.target = "_blank";
+        linkElement.style.margin ="0 10px 0 10px";
+        announcementItem.appendChild(linkElement);
+    }
+
+    // Add delete button
+    var deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', function() {
+        announcementList.removeChild(announcementItem);
+    });
+    announcementItem.appendChild(deleteButton);
+
+    // Add announcement item to list
+    announcementList.appendChild(announcementItem);
+}
+
+    </script>
+</body>
+</html>

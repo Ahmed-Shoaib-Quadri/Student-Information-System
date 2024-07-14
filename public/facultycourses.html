@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+    <link rel="stylesheet" href="facultycourses.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <header>
+        <h1>Course Management</h1>
+        <a href="faculty.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Courses and Sections</h2>
+            <input type="text" id="courseSearchInput" placeholder="Search by Course">
+            <table id="courseSectionTable">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Sections</th>
+                        <th>Upload Materials</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="courseSectionTableBody">
+                    <!-- Course and section items will be dynamically added here -->
+                </tbody>
+            </table>
+
+            <div id="addCourseForm">
+                <h2>Add New Course</h2>
+                <input type="text" id="courseNameInput" placeholder="Course Name">
+                <input type="text" id="sectionsInput" placeholder="Sections (comma-separated)">
+                <button onclick="addCourse()">Add Course</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+        </div>
+    </footer>
+
+    <script src="facultycourses.js"></script>
+</body>
+</html>

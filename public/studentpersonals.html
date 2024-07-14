@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Personal Information</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Add your CSS styles here */
+        header a{
+            color: #fff;
+            text-decoration: none;
+        }
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+label {
+    display: inline-block;
+    width: 150px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 308px; /* Adjusted for border */
+    margin-bottom: 10px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Personal Information</h1>
+        <a href="student.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Edit Personal Information</h2>
+            <form id="studentInfoForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+
+                <label for="fatherName">Father's Name:</label>
+                <input type="text" id="fatherName" name="fatherName" required><br>
+
+                <label for="motherName">Mother's Name:</label>
+                <input type="text" id="motherName" name="motherName" required><br>
+
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select><br>
+
+                <label for="contactNo">Contact No.:</label>
+                <input type="text" id="contactNo" name="contactNo" required><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" required></textarea><br>
+
+                <label for="tenthGrade">10th Grade:</label>
+                <input type="text" id="tenthGrade" name="tenthGrade" required><br>
+
+                <label for="twelfthGrade">12th Grade:</label>
+                <input type="text" id="twelfthGrade" name="twelfthGrade" required><br>
+
+                <label for="tenthMemo">Upload 10th Marks Memo:</label>
+                <input type="file" id="tenthMemo" name="tenthMemo"><br>
+
+                <label for="twelfthMemo">Upload 12th Marks Memo:</label>
+                <input type="file" id="twelfthMemo" name="twelfthMemo"><br>
+
+                <label for="transferCertificate">Upload Transfer Certificate:</label>
+                <input type="file" id="transferCertificate" name="transferCertificate"><br>
+
+                <button type="submit">Save Information</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </footer>
+
+    <script>
+        // Function to handle form submission
+document.getElementById('studentInfoForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form data
+    var formData = new FormData(this);
+
+    // Convert form data to JSON object
+    var studentInfo = {};
+    formData.forEach(function(value, key){
+        studentInfo[key] = value;
+    });
+
+    // Perform further actions like sending data to server or storing locally
+    console.log(studentInfo); // Example: Log student information
+});
+
+    </script>
+</body>
+</html>

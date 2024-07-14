@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Student Information System</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+  <main>
+    <section class="admin-hero">
+      <div class="admin-hero-content">
+        <h1>Welcome, Administrator</h1>
+        <p>Manage the Student Information System with ease.</p><br>
+        <form action="/logout" method="post"><button type="submit"><i class="fa-solid fa-arrow-left"></i> LogOut</button></form>
+      </div>
+    </section>
+    <section class="admin-dashboard">
+      <h2>Admin Dashboard</h2>
+      <div class="admin-cards">
+        <div class="admin-card">
+          <i class="fas fa-user-cog"></i>
+          <h3>User Management</h3>
+          <p>Create, edit, and delete user accounts.</p>
+          <a href="./usermanagement.html" class="btn">Manage Users</a>
+        </div>
+        <div class="admin-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>Course Management</h3>
+          <p>Manage courses, enrollments, and academic programs.</p>
+          <a href="./coursemanagement.html" class="btn">Manage Courses</a>
+        </div>
+        <div class="admin-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>Reporting</h3>
+          <p>Generate reports and analytics for the SIS.</p>
+          <a href="./Reports.html" class="btn">View Reports</a>
+        </div>
+        <div class="admin-card">
+          <i class="fas fa-envelope"></i>
+          <h3>Announcements</h3>
+          <p>Make announcements with an ease.</p>
+          <a href="./Announcement.html" class="btn">Communicate</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="container">
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </div>
+</footer>
+
+  <script src="../scripts/app.js"></script>
+</body>
+</html>

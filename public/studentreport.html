@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Academic Progress</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Include Google Charts Loader -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Add your CSS styles here */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+header a {
+    color:#fff;
+    text-decoration: none;
+}
+
+.student-info {
+    margin-bottom: 20px;
+}
+
+.charts {
+    margin-top: 20px;
+}
+
+.chart {
+    margin-bottom: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Academic Progress</h1>
+        <a href="student.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+    </header>
+
+    <main class="container">
+        <div class="student-info">
+            <!-- Student personal info will be dynamically added here -->
+        </div>
+        <div class="charts">
+            <div class="form-group">
+                <label for="yearSelect">Select Year:</label>
+                <select id="yearSelect" class="form-control">
+                    <option value="1">Year 1</option>
+                    <option value="2">Year 2</option>
+                    <!-- Add options for other years -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semesterSelect">Select Semester:</label>
+                <select id="semesterSelect" class="form-control">
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <!-- Add options for other semesters -->
+                </select>
+            </div>
+            <div id="marksChart" class="chart"></div>
+            <div id="gpaChart" class="chart"></div>
+            <button id="compareBtn" class="btn btn-primary">Compare with Other Students</button>
+            <div id="compareChart" class="chart"></div>
+        </div>
+    </main>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Include custom JS -->
+    <script>
+        // Load Google Charts
+google.charts.load('current', {'packages':['bar']});
+google.charts.setOnLoadCallback(drawCharts);
+
+// Sample data for student personal info
+var studentInfo = {
+    name: 'John Doe',
+    rollNo: '123456',
+    branch: 'Computer Science',
+    address: '123 Main Street, City, Country',
+    contactInfo: '+1234567890',
+    email: 'johndoe@example.com'
+};
+
+// Sample data for student marks and GPA
+var studentMarksData = {
+    'Year 1': {
+        'Semester 1': [85, 90, 75, 80, 95],
+        'Semester 2': [75, 80, 70, 85, 90]
+    },
+    'Year 2': {
+        'Semester 1': [90, 85, 80, 75, 95],
+        'Semester 2': [80, 75, 70, 65, 85]
+    }
+};
+
+// Function to draw charts
+function drawCharts() {
+    // Display student personal info
+    displayStudentInfo();
+
+    // Display initial charts for Year 1, Semester 1
+    displayCharts('1', '1');
+
+    // Event listener for year and semester selection
+    $('#yearSelect, #semesterSelect').change(function() {
+        var year = $('#yearSelect').val();
+        var semester = $('#semesterSelect').val();
+        displayCharts(year, semester);
+    });
+
+    // Event listener for compare button
+    $('#compareBtn').click(function() {
+        var selectedStudentData = getCurrentStudentData();
+        compareWithOtherStudents(selectedStudentData);
+    });
+}
+var studentsData = [
+            { rollNumber: '123456', name: 'John Doe', email: 'john.doe@example.com', phoneNumber: '+1234567890', address: '123 Main Street, City, Country', mathScore: 85, physicsScore: 90, chemistryScore: 75, biologyScore: 80, computerScienceScore: 95,attendance:25 },
+            { rollNumber: '234567', name: 'Alice Smith', email: 'alice.smith@example.com', phoneNumber: '+1234567890', address: '456 Elm Street, City, Country', mathScore: 75, physicsScore: 80, chemistryScore: 70, biologyScore: 85, computerScienceScore: 90,attendance:75 },
+            // Add more student data here...
+        ];
+function compareWithOtherStudents(selectedStudentData) {
+            // Prompt the user to enter the name of the other student
+            var otherStudentName = prompt("Enter the name of the other student to compare:").toLowerCase();
+
+            // Find the other student's data based on the entered name
+            var otherStudentData = findStudentByName(otherStudentName);
+
+            // If other student's data is found, proceed with comparison
+            if (otherStudentData) {
+                // Calculate average scores for each subject across all students
+                var averageScores = calculateAverageScores();
+
+                // Draw the comparison chart
+                drawChart3(selectedStudentData, otherStudentData, averageScores);
+            } else {
+                alert("Student with the entered name not found!");
+            }
+        }
+        function drawChart3(selectedStudentData, otherStudentData, averageScores) {
+            // Draw Chart 3
+            // Similar to previous implementation
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Subject');
+            data.addColumn('number', selectedStudentData.name);
+            data.addColumn('number', otherStudentData.name);
+            data.addRows([
+                ['Math', selectedStudentData.mathScore, otherStudentData.mathScore],
+                ['Physics', selectedStudentData.physicsScore, otherStudentData.physicsScore],
+                ['Chemistry', selectedStudentData.chemistryScore, otherStudentData.chemistryScore],
+                ['Biology', selectedStudentData.biologyScore, otherStudentData.biologyScore],
+                ['Computer Science', selectedStudentData.computerScienceScore, otherStudentData.computerScienceScore]
+            ]);
+
+            var options = {
+                title: 'Student Scores Comparison',
+                legend: { position: 'top' },
+                bars: 'horizontal',
+                series: {
+                    0: { color: '#3366cc' }, // Color for selected student's scores
+                    1: { color: '#dc3912' }, // Color for other student's scores
+                },
+                hAxis: { title: 'Score' }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('compareChart'));
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+        function calculateAverageScores() {
+            var totalStudents = studentsData.length;
+            var totalMath = 0, totalPhysics = 0, totalChemistry = 0, totalBiology = 0, totalComputerScience = 0;
+
+            // Calculate total scores for each subject across all students
+            studentsData.forEach(function(student) {
+                totalMath += student.mathScore;
+                totalPhysics += student.physicsScore;
+                totalChemistry += student.chemistryScore;
+                totalBiology += student.biologyScore;
+                totalComputerScience += student.computerScienceScore;
+            });
+
+            // Calculate average scores for each subject
+            var averageScores = {
+                math: totalMath / totalStudents,
+                physics: totalPhysics / totalStudents,
+                chemistry: totalChemistry / totalStudents,
+                biology: totalBiology / totalStudents,
+                computerScience: totalComputerScience / totalStudents
+            };
+
+            return averageScores;
+        }
+
+        function findStudentByName(studentName) {
+            // Convert input name to uppercase for case-insensitive comparison
+            var upperCaseName = studentName.toUpperCase();
+
+            // Loop through studentsData to find the student with matching name
+            for (var i = 0; i < studentsData.length; i++) {
+                if (studentsData[i].name.toUpperCase() === upperCaseName) {
+                    return studentsData[i];
+                }
+            }
+            return null; // If no matching student found
+        }
+function getCurrentStudentData() {
+           // var rollNumber = document.getElementById('rollNumber').textContent;
+           var rollNumber = '123456';
+            // Loop through studentsData to find the student with matching rollNumber
+            for (var i = 0; i < studentsData.length; i++) {
+                if (studentsData[i].rollNumber === rollNumber) {
+                    return studentsData[i];
+                }
+            }
+            return null; // If no matching student found
+        }
+// Function to display student personal info
+function displayStudentInfo() {
+    var infoHtml = '<h3>Personal Information</h3>';
+    infoHtml += '<p><strong>Name:</strong> ' + studentInfo.name + '</p>';
+    infoHtml += '<p id="rollNumber"><strong>Roll Number:</strong> ' + studentInfo.rollNo + '</p>';
+    infoHtml += '<p><strong>Branch:</strong> ' + studentInfo.branch + '</p>';
+    infoHtml += '<p><strong>Address:</strong> ' + studentInfo.address + '</p>';
+    infoHtml += '<p><strong>Contact Info:</strong> ' + studentInfo.contactInfo + '</p>';
+    infoHtml += '<p><strong>Email:</strong> ' + studentInfo.email + '</p>';
+    $('.student-info').html(infoHtml);
+}
+
+// Function to display marks chart and GPA chart for selected year and semester
+function displayCharts(year, semester) {
+    var marksData = studentMarksData['Year ' + year]['Semester ' + semester];
+    var gpaData = calculateGPAData(marksData);
+
+    drawMarksChart(marksData);
+    drawGPAChart(gpaData);
+}
+
+// Function to draw marks chart
+function drawMarksChart(marksData) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Subject');
+    data.addColumn('number', 'Marks');
+    data.addRows([
+        ['Math', marksData[0]],
+        ['Physics', marksData[1]],
+        ['Chemistry', marksData[2]],
+        ['Biology', marksData[3]],
+        ['Computer Science', marksData[4]]
+    ]);
+
+    var options = {
+        chart: {
+            title: 'Marks Comparison'
+        }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('marksChart'));
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+}
+
+// Function to calculate GPA data
+function calculateGPAData(marksData) {
+    var totalMarks = marksData.reduce((a, b) => a + b, 0);
+    var gpa = (totalMarks / (marksData.length * 100)) * 10; // Assuming max marks for each subject is 100
+
+    return [['GPA', gpa]];
+}
+
+// Function to draw GPA chart
+function drawGPAChart(gpaData) {
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Metric');
+    data.addColumn('number', 'GPA');
+    data.addRows(gpaData);
+
+    var options = {
+        chart: {
+            title: 'GPA Progress'
+        }
+    };
+
+    var chart = new google.charts.Bar(document.getElementById('gpaChart'));
+    chart.draw(data, google.charts.Bar.convertOptions(options));
+}
+
+// Function to display compare chart
+function displayCompareChart() {
+    // Logic to display comparison chart with other students
+    // This can be implemented based on specific requirements
+}
+
+    </script>
+</body>
+</html>

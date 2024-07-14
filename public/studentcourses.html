@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course Enrollment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Add your CSS styles here */
+        header a{
+            color: #fff;
+            text-decoration: none;
+        }
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+.courses-container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+}
+.course-card {
+    background-color:rgb(240,240,240);
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align:center;
+    height:25vh;
+    border-radius:10px;
+}
+.course-card:hover{
+    transform: translateY(-5px);
+}
+
+.course-card h3 {
+    margin-bottom: 5px;
+}
+
+.course-card p {
+    margin-bottom: 10px;
+}
+
+.course-card button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.enroll-button {
+    background-color: #007bff;
+    color: #fff;
+    margin-right: 2px;
+}
+
+.deenroll-button {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.tick-icon {
+    color: green;
+    margin-left: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Course Enrollment</h1>
+        <a href="student.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Available Courses</h2>
+            <div id="coursesContainer" class="courses-container">
+                <!-- Course cards will be dynamically added here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </footer>
+
+    <script>
+        // Sample data for available courses with instructors
+var availableCourses = [
+    { id: 1, name: 'Mathematics', instructor: 'Prof. John Smith', enrolled: false },
+    { id: 2, name: 'Physics', instructor: 'Prof. Alice Johnson', enrolled: true },
+    { id: 3, name: 'Chemistry', instructor: 'Prof. David Brown', enrolled: false },
+    { id: 4, name: 'Biology', instructor: 'Prof. Emily Davis', enrolled: false },
+    { id: 5, name: 'Computer Science', instructor: 'Prof. Michael Wilson', enrolled: false },
+    {id:6,name:'Mechanics',instructor:'Prof. Mary Jane',enrolled:false}
+];
+
+// Function to display available courses
+function displayCourses() {
+    var coursesContainer = document.getElementById('coursesContainer');
+
+    availableCourses.forEach(function(course) {
+        var courseCard = document.createElement('div');
+        courseCard.classList.add('course-card');
+
+        var courseName = document.createElement('h3');
+        courseName.textContent = course.name;
+        courseCard.appendChild(courseName);
+
+        var instructorInfo = document.createElement('p');
+        instructorInfo.textContent = 'Instructor: ' + course.instructor;
+        courseCard.appendChild(instructorInfo);
+
+        var enrollButton = document.createElement('button');
+        enrollButton.textContent = 'Enroll';
+        enrollButton.classList.add('enroll-button');
+        enrollButton.dataset.courseId = course.id;
+        enrollButton.addEventListener('click', enrollCourse);
+        courseCard.appendChild(enrollButton);
+
+        var deenrollButton = document.createElement('button');
+        deenrollButton.textContent = 'De-enroll';
+        deenrollButton.classList.add('deenroll-button');
+        deenrollButton.dataset.courseId = course.id;
+        deenrollButton.addEventListener('click', deenrollCourse);
+        courseCard.appendChild(deenrollButton);
+
+        if (course.enrolled) {
+            var tickIcon = document.createElement('span');
+            tickIcon.classList.add('tick-icon');
+            tickIcon.innerHTML = '&#10004;';
+            courseCard.appendChild(tickIcon);
+        }
+
+        coursesContainer.appendChild(courseCard);
+    });
+}
+
+// Function to enroll in a course
+function enrollCourse(event) {
+    var courseId = event.target.dataset.courseId;
+    var courseIndex = availableCourses.findIndex(course => course.id === parseInt(courseId));
+
+    if (courseIndex !== -1) {
+        if(confirm("Are you sure you want to enroll into this course ?")){
+        availableCourses[courseIndex].enrolled = true;
+
+        // Clear existing course cards and display updated courses
+        var coursesContainer = document.getElementById('coursesContainer');
+        coursesContainer.innerHTML = '';
+        displayCourses();
+        }
+    }
+}
+
+// Function to de-enroll from a course
+function deenrollCourse(event) {
+    var courseId = event.target.dataset.courseId;
+    var courseIndex = availableCourses.findIndex(course => course.id === parseInt(courseId));
+
+    if (courseIndex !== -1) {
+        if(confirm("Are you sure you want to de-enroll this course?")){
+        availableCourses[courseIndex].enrolled = false;
+
+        // Clear existing course cards and display updated courses
+        var coursesContainer = document.getElementById('coursesContainer');
+        coursesContainer.innerHTML = '';
+        displayCourses();
+        }
+    }
+}
+
+// Display available courses on page load
+displayCourses();
+
+    </script>
+</body>
+</html>

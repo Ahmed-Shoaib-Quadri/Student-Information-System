@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Entry</title>
+    <link rel="stylesheet" href="gradeentry.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        header a{
+            color : #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Marks Entry</h1>
+        <a href="faculty.html"><i class="fa-solid fa-arrow-left"></i> Return to Dashboard</a>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <h2>Select Section</h2>
+            <select id="sectionSelect" onchange="displayStudents()">
+                <option value="sectionA">Section A</option>
+                <option value="sectionB">Section B</option>
+                <option value="sectionC">Section C</option>
+                <!-- Add more sections if needed -->
+            </select>
+
+            <h2>Enter Marks</h2>
+            <div id="studentsTable"></div>
+            <button onclick="submitMarks()">Submit Marks</button>
+
+            <h2>Display Students by Subject</h2>
+            <select id="subjectSelect" onchange="displayStudentsBySubject()">
+                <option value="math">Mathematics</option>
+                <option value="physics">Physics</option>
+                <option value="chemistry">Chemistry</option>
+                <option value="biology">Biology</option>
+                <option value="computerScience">Computer Science</option>
+                <!-- Add more subjects if needed -->
+            </select>
+            <div id="subjectStudentsTable"></div>
+
+            <h2>Search Student</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" onkeyup="searchStudents()" placeholder="Search for student...">
+                <button onclick="searchStudents()">Search</button>
+            </div>
+            <div id="searchResult"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 CVR College of Engineering - Student Information System</p>
+    </footer>
+
+    <script>
+        // Sample student data for different sections
+var studentsData = {
+    sectionA: [
+        { rollNumber: '123456', name: 'John Doe', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        { rollNumber: '234567', name: 'Alice Smith', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        // Add more students for Section A
+    ],
+    sectionB: [
+        { rollNumber: '345678', name: 'Bob Johnson', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        { rollNumber: '456789', name: 'Emily Brown', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        // Add more students for Section B
+    ],
+    sectionC: [
+        { rollNumber: '567890', name: 'Michael Davis', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        { rollNumber: '678901', name: 'Sophia Wilson', marks: { math: '', physics: '', chemistry: '', biology: '', computerScience: '' } },
+        // Add more students for Section C
+    ]
+    // Add more sections if needed
+};
+
+// Function to display students based on selected section
+function displayStudents() {
+    var sectionSelect = document.getElementById('sectionSelect');
+    var selectedSection = sectionSelect.options[sectionSelect.selectedIndex].value;
+
+    var studentsTable = document.getElementById('studentsTable');
+    studentsTable.innerHTML = ''; // Clear previous table content
+
+    var sectionStudents = studentsData[selectedSection];
+
+    // Create table header
+    var tableHTML = '<table><thead><tr><th>Roll Number</th><th>Name</th>';
+
+    // Add subject headers
+    for (var subject in sectionStudents[0].marks) {
+        tableHTML += '<th>' + subject + '</th>';
+    }
+
+    // Close table header
+    tableHTML += '</tr></thead><tbody>';
+
+    // Create table rows for each student
+    sectionStudents.forEach(function(student) {
+        tableHTML += '<tr><td>' + student.rollNumber + '</td><td>' + student.name + '</td>';
+
+        // Add input fields for each subject
+        for (var subject in student.marks) {
+            tableHTML += '<td><input type="text" value="' + student.marks[subject] + '" onchange="updateMarks(\'' + selectedSection + '\', \'' + student.rollNumber + '\', \'' + subject + '\', this.value)"></td>';
+        }
+
+        // Close row
+        tableHTML += '</tr>';
+    });
+
+    // Close table
+    tableHTML += '</tbody></table>';
+
+    // Add table to the container
+    studentsTable.innerHTML = tableHTML;
+}
+
+// Function to submit marks
+function updateMarks(rollNumber, marks) {
+    // Find the student in the data and update marks
+    var sectionSelect = document.getElementById('sectionSelect');
+    var selectedSection = sectionSelect.options[sectionSelect.selectedIndex].value;
+    var student = studentsData[selectedSection].find(function(student) {
+        return student.rollNumber === rollNumber;
+    });
+
+    if (student) {
+        student.marks = marks;
+        // Optionally, you can send this data to the server for backend processing/storage
+        console.log("Updated marks for " + student.name + ": " + marks);
+    }
+}
+// Function to submit marks
+function submitMarks() {
+    // Get the submitted marks data and display it separately
+    var submittedMarksTable = document.getElementById('submittedMarksTable');
+    var tableHTML = '<table><thead><tr><th>Roll Number</th><th>Name</th><th>Marks</th></tr></thead><tbody>';
+
+    // Loop through studentsData and add only those with marks entered
+    var sectionSelect = document.getElementById('sectionSelect');
+    var selectedSection = sectionSelect.options[sectionSelect.selectedIndex].value;
+    studentsData[selectedSection].forEach(function(student) {
+        if (true) {
+            tableHTML += '<tr><td>' + student.rollNumber + '</td><td>' + student.name + '</td><td>' + student.marks + '</td></tr>';
+        }
+    });
+
+    tableHTML += '</tbody></table>';
+    submittedMarksTable.innerHTML = tableHTML;
+}
+
+
+// Function to display students by subject
+function displayStudentsBySubject() {
+    // Same as before
+}
+
+// Function to search students and edit marks
+function searchStudents() {
+    // Same as before
+}
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
